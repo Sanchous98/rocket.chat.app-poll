@@ -1,17 +1,17 @@
 {
-    "id": "c33fa1a6-68a7-491e-bf49-9d7b99671c48",
-    "version": "3.2.0",
+    "id": "667fdbc4-cffa-4d1c-b979-9c1c69ceac52",
+    "version": "1.0.0",
     "requiredApiVersion": "^1.19.0",
     "iconFile": "icon.png",
     "author": {
-        "name": "Diego Sampaio",
-        "homepage": "https://github.com/sampaiodiego/rocket.chat.app-poll",
-        "support": "https://github.com/sampaiodiego/rocket.chat.app-poll"
+        "name": "Alexandru Punga",
+        "homepage": "https://github.com/Sanchous98/rocket.chat.app-poll",
+        "support": "https://github.com/Sanchous98/rocket.chat.app-poll"
     },
-    "name": "Poll",
-    "nameSlug": "poll",
+    "name": "Create Poll",
+    "nameSlug": "create-poll",
     "classFile": "PollApp.ts",
-    "description": "A simple app to create polls on Rocket.Chat. Use the slash command: /poll [Question?]",
+    "description": "A simple app to create polls on Rocket.Chat. Use the slash command: /create_poll question=[Question] choice=[choice] choice=[another choice]",
     "implements": [
         "IUIKitInteractionHandler"
     ]

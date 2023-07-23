@@ -1,13 +1,11 @@
 import {
     IConfigurationExtend,
     IHttp,
-    ILogger,
     IModify,
     IPersistence,
     IRead,
 } from '@rocket.chat/apps-engine/definition/accessors';
 import {App} from '@rocket.chat/apps-engine/definition/App';
-import {IAppInfo} from '@rocket.chat/apps-engine/definition/metadata';
 import {SettingType} from '@rocket.chat/apps-engine/definition/settings';
 import {
     IUIKitInteractionHandler,
@@ -19,17 +17,11 @@ import {createPollMessage} from './src/lib/createPollMessage';
 import {createPollModal} from './src/lib/createPollModal';
 import {finishPollMessage} from './src/lib/finishPollMessage';
 import {votePoll} from './src/lib/votePoll';
-import {PollCommand} from './src/PollCommand';
 import {CreatePollCommand} from "./src/CreatePollCommand";
 import {getPoll} from "./src/lib/getPoll";
 import {IJobContext} from "@rocket.chat/apps-engine/definition/scheduler";
 
 export class PollApp extends App implements IUIKitInteractionHandler {
-
-    constructor(info: IAppInfo, logger: ILogger) {
-        super(info, logger);
-    }
-
     public async executeViewSubmitHandler(context: UIKitViewSubmitInteractionContext, read: IRead, http: IHttp, persistence: IPersistence, modify: IModify) {
         const data = context.getInteractionData();
 
@@ -174,7 +166,6 @@ export class PollApp extends App implements IUIKitInteractionHandler {
     }
 
     public async initialize(configuration: IConfigurationExtend): Promise<void> {
-        await configuration.slashCommands.provideSlashCommand(new PollCommand());
         await configuration.slashCommands.provideSlashCommand(new CreatePollCommand());
         await configuration.settings.provideSetting({
             id: 'use-user-name',
