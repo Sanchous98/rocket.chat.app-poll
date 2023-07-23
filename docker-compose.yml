@@ -1,0 +1,7 @@
+version: '3'
+services:
+    rocket:
+        image: rocketchat/rocket.chat.preview
+        ports:
+            - "3000:3000"
+

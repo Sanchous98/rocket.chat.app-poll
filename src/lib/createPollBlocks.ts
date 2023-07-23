@@ -10,11 +10,15 @@ export function createPollBlocks(block: BlockBuilder, question: string, options:
         ...!poll.finished && {
             accessory: {
                 type: BlockElementType.OVERFLOW_MENU,
-                actionId: 'finish',
+                actionId: 'overflow',
                 options: [
                     {
                         text: block.newPlainTextObject('Finish poll'),
                         value: 'finish',
+                    },
+                    {
+                        text: block.newPlainTextObject('Did not vote'),
+                        value: 'not-voted',
                     },
                 ],
             },

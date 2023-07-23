@@ -1,5 +1,5 @@
 {
-  "url": "<rocket.chat url - http://localhost:3000>",
-  "username": "<username>",
-  "password": "<password>"
+  "url": "http://localhost:3000",
+  "username": "alexpunga98",
+  "password": "Alex1998"
 }
