@@ -22,6 +22,7 @@ import {votePoll} from './src/lib/votePoll';
 import {PollCommand} from './src/PollCommand';
 import {CreatePollCommand} from "./src/CreatePollCommand";
 import {getPoll} from "./src/lib/getPoll";
+import {IJobContext} from "@rocket.chat/apps-engine/definition/scheduler";
 
 export class PollApp extends App implements IUIKitInteractionHandler {
 
@@ -145,7 +146,7 @@ export class PollApp extends App implements IUIKitInteractionHandler {
                             return poll.votes.filter(vote => {
                                 return vote.voters.filter(person => person.id === id).length > 0
                             }).length === 0;
-                        }).map(async id => await read.getUserReader().getById(id).then(user => "@"+user.username)));
+                        }).map(async id => await read.getUserReader().getById(id).then(user => "@" + user.username)));
 
                         if (notVoted.length === 0) {
                             const builder = modify.getCreator()
@@ -184,5 +185,27 @@ export class PollApp extends App implements IUIKitInteractionHandler {
             public: true,
             packageValue: false,
         });
+        await configuration.scheduler.registerProcessors([
+            {
+                id: 'poll_timeout',
+                processor: this.processor,
+            },
+        ]);
+    }
+
+    private async processor(jobContext: IJobContext, read: IRead, modify: IModify, http: IHttp, persistence: IPersistence) {
+        await finishPollMessage({
+            data: {
+                message: {
+                    id: jobContext.poll.msgId,
+                },
+                user: {
+                    id: jobContext.poll.uid,
+                }
+            },
+            read,
+            persistence,
+            modify
+        })
     }
 }
